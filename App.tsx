@@ -1,45 +1,50 @@
+import { useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import notifee, { EventType } from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
+import Router from './src/components/Router';
+import { setupNotifications } from './src/services/NotificationService';
+
+/** Maneja la presión de notificaciones cuando la app está en background. */
+notifee.onBackgroundEvent(async ({ type }) => {
+  if (type === EventType.PRESS) {
+    // Notificación presionada en background
+  }
+});
+
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
+ * Componente raíz de la aplicación.
+ * Inicializa SafeAreaProvider, configura notificaciones locales/FCM
+ * y renderiza el sistema de navegación con autenticación.
  */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  useEffect(() => {
+    setupNotifications();
+
+    /** Escucha mensajes FCM en foreground y los muestra como notificación local. */
+    const unsubscribeFcm = messaging().onMessage(async remoteMessage => {
+      if (remoteMessage.notification) {
+        await notifee.displayNotification({
+          title: remoteMessage.notification.title,
+          body: remoteMessage.notification.body,
+          android: {
+            channelId: 'reminders',
+            pressAction: { id: 'default' },
+          },
+        });
+      }
+    });
+
+    return unsubscribeFcm;
+  }, []);
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+      <Router />
     </SafeAreaProvider>
   );
 }
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

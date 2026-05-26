@@ -1,0 +1,192 @@
+import LocalizedStrings from 'react-native-localization';
+
+/**
+ * Configuración centralizada de la aplicación.
+ * Define colores, categorías, opciones de repetición, espaciado,
+ * tamaños de fuente y textos localizados (EN/ES).
+ */
+export default {
+  /** Nombre visible de la aplicación. */
+  name: 'Remindme',
+  /** Versión semántica de la aplicación. */
+  appVersion: '1.0',
+  /** Número de build de la aplicación. */
+  appBuild: '1',
+
+  /** Color principal (acento) de la aplicación. */
+  colorPrimary: '#6C63FF',
+  /** Variante clara del color principal. */
+  colorPrimaryLight: '#A59EFF',
+  /** Color de fondo general de la aplicación. */
+  colorBackground: '#F5F5F5',
+  /** Color de superficies (tarjetas, inputs, headers). */
+  colorSurface: '#FFFFFF',
+  /** Color principal del texto. */
+  colorText: '#1A1A2E',
+  /** Color secundario del texto (subtítulos, metadatos). */
+  colorTextSecondary: '#6B7280',
+  /** Color de bordes y separadores. */
+  colorBorder: '#E5E7EB',
+  /** Color para errores y acciones destructivas. */
+  colorError: '#EF4444',
+  /** Color para estados exitosos. */
+  colorSuccess: '#10B981',
+  /** Color para elementos deshabilitados. */
+  colorDisable: '#C0C0C0',
+  /** Color de superposición para modales y fondos translúcidos. */
+  colorOverlay: 'rgba(0, 0, 0, 0.5)',
+
+  /** Lista de categorías predefinidas para clasificar recordatorios. */
+  categories: [
+    { id: '1', name: 'Trabajo', color: '#FF6B6B' },
+    { id: '2', name: 'Personal', color: '#4DABF7' },
+    { id: '3', name: 'Salud', color: '#69DB7C' },
+    { id: '4', name: 'Estudio', color: '#FFD43B' },
+    { id: '5', name: 'Hogar', color: '#FFA94D' },
+    { id: '6', name: 'Finanzas', color: '#38D9A9' },
+    { id: '7', name: 'Social', color: '#DA77F2' },
+    { id: '8', name: 'Otros', color: '#9775FA' },
+  ],
+
+  /** Opciones de repetición disponibles para los recordatorios. */
+  repeatOptions: [
+    { label: 'No repetir', value: 'none' },
+    { label: 'Diario', value: 'daily' },
+    { label: 'Semanal', value: 'weekly' },
+  ],
+
+  /** Tamaños de espaciado consistentes (xs a xl). */
+  spacing: { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 },
+  /** Tamaños de fuente tipográficos (h1 a caption). */
+  fontSizes: { h1: 28, h2: 22, body: 16, caption: 13 },
+
+  /** Textos localizados en inglés (default) y español. */
+  strings: new LocalizedStrings({
+    en: {
+      home: 'Home',
+      newReminder: 'New Reminder',
+      settings: 'Settings',
+      title: 'Title',
+      description: 'Description',
+      category: 'Category',
+      date: 'Date',
+      time: 'Time',
+      repeat: 'Repeat',
+      save: 'Save',
+      cancel: 'Cancel',
+      noReminders: 'No reminders yet',
+      enableNotifications: 'Enable Notifications',
+      fcmToken: 'FCM Token',
+      copy: 'Copy',
+      deleteAll: 'Delete all reminders',
+      confirmDelete: 'Delete reminder?',
+      today: 'Today',
+      tomorrow: 'Tomorrow',
+      upcoming: 'Upcoming',
+      expired: 'Expired',
+      titlePlaceholder: 'E.g. Team meeting',
+      descriptionPlaceholder: 'Optional description',
+      invalidDate: 'Invalid date',
+      dateMustBeFuture: 'The date must be today or a future date',
+      invalidTime: 'Invalid time',
+      timeMustBeFuture: 'The selected time has already passed. Choose a future time',
+      editReminder: 'Edit Reminder',
+      update: 'Update',
+      delete: 'Delete',
+      saved: 'Saved',
+      reminderCreated: 'Reminder "{title}" created',
+      tapToCreate: 'Tap + to create your first reminder',
+      repeats: 'Repeats: ',
+      login: 'Log In',
+      register: 'Sign Up',
+      email: 'Email',
+      password: 'Password',
+      confirmPassword: 'Confirm password',
+      emailPlaceholder: 'your@email.com',
+      passwordPlaceholder: 'Minimum 6 characters',
+      noAccount: "Don't have an account? Sign Up",
+      hasAccount: 'Already have an account? Log In',
+      loginError: 'Invalid email or password',
+      registerError: 'Could not create account',
+      logout: 'Log Out',
+      passwordsDontMatch: 'Passwords do not match',
+      invalidEmail: 'Please enter a valid email',
+      passwordTooShort: 'Password must be at least 6 characters',
+      emailInUse: 'This email is already in use',
+      tooManyRequests: 'Too many attempts. Try again later',
+      createAccount: 'Create your account',
+      copied: 'Copied',
+      deleteAllConfirmDesc: 'This action cannot be undone',
+      logoutConfirm: 'Are you sure you want to log out?',
+      version: 'Version',
+      info: 'Info',
+      data: 'Data',
+      notifications: 'Notifications',
+      disableNotifConfirm: 'Notifications will stop working. Are you sure?',
+      disable: 'Disable',
+    },
+    es: {
+      home: 'Inicio',
+      newReminder: 'Nuevo Recordatorio',
+      settings: 'Ajustes',
+      title: 'Título',
+      description: 'Descripción',
+      category: 'Categoría',
+      date: 'Fecha',
+      time: 'Hora',
+      repeat: 'Repetir',
+      save: 'Guardar',
+      cancel: 'Cancelar',
+      noReminders: 'No hay recordatorios',
+      enableNotifications: 'Activar notificaciones',
+      fcmToken: 'Token FCM',
+      copy: 'Copiar',
+      deleteAll: 'Borrar todos los recordatorios',
+      confirmDelete: '¿Eliminar recordatorio?',
+      today: 'Hoy',
+      tomorrow: 'Mañana',
+      upcoming: 'Próximos',
+      expired: 'Vencidos',
+      titlePlaceholder: 'Ej: Reunión con equipo',
+      descriptionPlaceholder: 'Descripción opcional',
+      invalidDate: 'Fecha inválida',
+      dateMustBeFuture: 'La fecha debe ser hoy o una fecha futura',
+      invalidTime: 'Hora inválida',
+      timeMustBeFuture: 'La hora seleccionada ya pasó. Selecciona una hora futura',
+      editReminder: 'Editar Recordatorio',
+      update: 'Actualizar',
+      delete: 'Eliminar',
+      saved: 'Guardado',
+      reminderCreated: 'Recordatorio "{title}" creado',
+      tapToCreate: 'Toca + para crear tu primer recordatorio',
+      repeats: 'Repite: ',
+      login: 'Iniciar sesión',
+      register: 'Registrarse',
+      email: 'Correo electrónico',
+      password: 'Contraseña',
+      confirmPassword: 'Confirmar contraseña',
+      emailPlaceholder: 'tu@correo.com',
+      passwordPlaceholder: 'Mínimo 6 caracteres',
+      noAccount: '¿No tienes cuenta? Regístrate',
+      hasAccount: '¿Ya tienes cuenta? Inicia sesión',
+      loginError: 'Correo o contraseña inválidos',
+      registerError: 'No se pudo crear la cuenta',
+      logout: 'Cerrar sesión',
+      passwordsDontMatch: 'Las contraseñas no coinciden',
+      invalidEmail: 'Ingresa un correo válido',
+      passwordTooShort: 'La contraseña debe tener al menos 6 caracteres',
+      emailInUse: 'Este correo ya está registrado',
+      tooManyRequests: 'Demasiados intentos. Intenta más tarde',
+      createAccount: 'Crea tu cuenta',
+      copied: 'Copiado',
+      deleteAllConfirmDesc: 'Esta acción no se puede deshacer',
+      logoutConfirm: '¿Estás seguro de cerrar sesión?',
+      version: 'Versión',
+      info: 'Información',
+      data: 'Datos',
+      notifications: 'Notificaciones',
+      disableNotifConfirm: 'Las notificaciones dejarán de funcionar. ¿Estás seguro?',
+      disable: 'Desactivar',
+    },
+  }),
+};

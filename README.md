@@ -1,97 +1,203 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 📋 Remindme
 
-# Getting Started
+**React Native** · **Firebase Auth** · **Cloud Firestore** · **FCM** · **Notifee**
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## Screenshots
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+<p float="left">
+  <img src="screenshots/login.jpg" width="250" />
+  <img src="screenshots/register.jpg" width="250" />
+  <img src="screenshots/empty.jpg" width="250" />
+  <img src="screenshots/create.jpg" width="250" />
+  <img src="screenshots/reminders.jpg" width="250" />
+  <img src="screenshots/notification.jpg" width="250" />
+  <img src="screenshots/settings.jpg" width="250" />
+</p>
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Capturas
 
-```sh
-# Using npm
-npm start
+<p float="left">
+  <img src="screenshots/login.jpg" width="250" />
+  <img src="screenshots/register.jpg" width="250" />
+  <img src="screenshots/empty.jpg" width="250" />
+  <img src="screenshots/create.jpg" width="250" />
+  <img src="screenshots/reminders.jpg" width="250" />
+  <img src="screenshots/notification.jpg" width="250" />
+  <img src="screenshots/settings.jpg" width="250" />
+</p>
 
-# OR using Yarn
-yarn start
+---
+
+## Features
+
+- Email/password authentication with Firebase Auth
+- Real-time reminders sync with Cloud Firestore
+- Scheduled local notifications via Notifee (daily/weekly repeat support)
+- FCM token retrieval for push notification capability
+- Color-coded categories (Work, Personal, Health, Study, Home, Finance, Social, Other)
+- Reminder sections: Today, Tomorrow, Upcoming, Expired
+- Create, edit, and delete reminders
+- Notification toggle (enable/disable all)
+- Offline persistence (Firestore cache)
+- Multi-language support (EN/ES)
+- Password visibility toggle
+- Copy FCM token to clipboard
+
+## Características
+
+- Autenticación con email/contraseña mediante Firebase Auth
+- Sincronización de recordatorios en tiempo real con Cloud Firestore
+- Notificaciones locales programadas con Notifee (soporte de repetición diaria/semanal)
+- Obtención de token FCM para capacidad de notificaciones push
+- Categorías por colores (Trabajo, Personal, Salud, Estudio, Hogar, Finanzas, Social, Otros)
+- Secciones de recordatorios: Hoy, Mañana, Próximos, Vencidos
+- Crear, editar y eliminar recordatorios
+- Interruptor de notificaciones (activar/desactivar todas)
+- Persistencia offline (caché de Firestore)
+- Soporte multi-idioma (EN/ES)
+- Botón para mostrar/ocultar contraseña
+- Copiar token FCM al portapapeles
+
+---
+
+## Tech Stack / Stack Tecnológico
+
+| Technology / Tecnología | Usage / Uso |
+|---|---|
+| [React Native](https://reactnative.dev) 0.85 | Cross-platform mobile framework |
+| [Firebase Auth](https://firebase.google.com/docs/auth) | Email/password authentication |
+| [Cloud Firestore](https://firebase.google.com/docs/firestore) | Real-time NoSQL database |
+| [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) | Push notification token |
+| [Notifee](https://notifee.app) | Local scheduled notifications |
+| [React Navigation](https://reactnavigation.org) | Stack navigation |
+| [AsyncStorage](https://github.com/react-native-async-storage/async-storage) | Local preferences storage |
+| [react-native-localization](https://github.com/balancedtech/react-native-localization) | i18n (EN/ES) |
+
+---
+
+## Architecture / Arquitectura
+
+```
+App.tsx
+  └─ SafeAreaProvider
+      └─ Router
+          └─ AuthProvider                  ← Firebase Auth state
+              ├─ (no user) LoginScreen     ← Auth form
+              └─ (user) ReminderProvider   ← Firestore + notifications
+                  └─ NavigationContainer
+                      ├─ HomeScreen             ← Reminder list
+                      ├─ CreateReminderScreen   ← Create/Edit form
+                      └─ SettingsScreen         ← Preferences, logout
 ```
 
-## Step 2: Build and run your app
+### Data flow / Flujo de datos
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+**English**: Reminders are stored in a flat `reminders/` Firestore collection (not nested under users). The `ReminderProvider` subscribes to real-time updates via `onSnapshot`, sorts them client-side by date+time, and syncs scheduled notifications with Notifee. Authentication state is managed by `AuthProvider` via `onAuthStateChanged`.
 
-### Android
+**Español**: Los recordatorios se almacenan en una colección plana `reminders/` de Firestore (no anidada bajo usuarios). `ReminderProvider` se suscribe a actualizaciones en tiempo real mediante `onSnapshot`, ordena por fecha+hora del lado del cliente y sincroniza notificaciones programadas con Notifee. El estado de autenticación lo gestiona `AuthProvider` mediante `onAuthStateChanged`.
 
-```sh
-# Using npm
-npm run android
+---
 
-# OR using Yarn
-yarn android
+## Project Structure / Estructura del Proyecto
+
+```
+src/
+├── components/
+│   ├── LoginScreen.js            # Auth form / Formulario de autenticación
+│   ├── HomeScreen.js             # Reminder list / Lista de recordatorios
+│   ├── CreateReminderScreen.js   # Create/Edit form / Formulario crear/editar
+│   ├── SettingsScreen.js         # App settings / Ajustes
+│   ├── Globals.js                # Theme, i18n, config / Tema, i18n, configuración
+│   └── Router.js                 # Navigation + auth gate / Navegación + control de auth
+├── context/
+│   ├── AuthContext.js            # Firebase Auth provider
+│   └── ReminderContext.js        # Firestore CRUD provider
+└── services/
+    └── NotificationService.js    # Notifee + FCM logic / Lógica de notificaciones
 ```
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## Getting Started / Comenzando
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### Prerequisites / Prerrequisitos
+
+**English**:
+- Node.js >= 22.11.0
+- React Native CLI setup ([guide](https://reactnative.dev/docs/set-up-your-environment))
+- Android device or emulator
+- Firebase project ([console](https://console.firebase.google.com))
+
+**Español**:
+- Node.js >= 22.11.0
+- React Native CLI configurado ([guía](https://reactnative.dev/docs/set-up-your-environment))
+- Dispositivo Android o emulador
+- Proyecto de Firebase ([consola](https://console.firebase.google.com))
+
+### Installation / Instalación
 
 ```sh
-bundle install
+git clone https://github.com/your-user/remindme.git
+cd remindme
+npm install
 ```
 
-Then, and every time you update your native dependencies, run:
+### Firebase Configuration / Configuración de Firebase
+
+**English**:
+
+1. Go to [Firebase Console](https://console.firebase.google.com)
+2. Create a new project (or use existing)
+3. Add an Android app with package name `com.remindme`
+4. Download `google-services.json` and place it in `android/app/`
+5. Enable **Authentication** → **Sign-in method** → **Email/Password**
+6. Create a Firestore database and add a collection named `reminders`
+
+**Español**:
+
+1. Ve a [Firebase Console](https://console.firebase.google.com)
+2. Crea un nuevo proyecto (o usa uno existente)
+3. Agrega una app Android con package name `com.remindme`
+4. Descarga `google-services.json` y colócalo en `android/app/`
+5. Habilita **Authentication** → **Sign-in method** → **Email/Password**
+6. Crea una base de datos Firestore y agrega una colección llamada `reminders`
+
+### Run / Ejecutar
 
 ```sh
-bundle exec pod install
+npx react-native run-android
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## Firebase Security Rules / Reglas de Seguridad
 
-# OR using Yarn
-yarn ios
+**English**: The following rules ensure users can only read and write their own reminders.
+
+**Español**: Las siguientes reglas aseguran que los usuarios solo puedan leer y escribir sus propios recordatorios.
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /reminders/{id} {
+      allow read, update, delete: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+    }
+  }
+}
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+**Note**: The unique constraint `userId == request.auth.uid` works because the app stores the authenticated user's UID in the `userId` field of each document.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+**Nota**: La restricción `userId == request.auth.uid` funciona porque la app almacena el UID del usuario autenticado en el campo `userId` de cada documento.
 
-## Step 3: Modify your app
+---
 
-Now that you have successfully run the app, let's make changes!
+## License / Licencia
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+MIT
