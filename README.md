@@ -139,8 +139,7 @@ src/
 ### Installation / Instalación
 
 ```sh
-git clone https://github.com/your-user/remindme.git
-cd remindme
+git clone https://github.com/sosagonzales0409-max/Remindmecd remindme
 npm install
 ```
 
@@ -194,7 +193,12 @@ service cloud.firestore {
 
 **Note**: The unique constraint `userId == request.auth.uid` works because the app stores the authenticated user's UID in the `userId` field of each document.
 
-**Nota**: La restricción `userId == request.auth.uid` funciona porque la app almacena el UID del usuario autenticado en el campo `userId` de cada documento.
+**Nota**: La restricción `userId == request.auth.uid` funciona porque la app almacena el UID del usuario autenticado en el campo `userId` de cada documento
+
+## 👤 Author / Autor
+**Luis Alberto Sosa González**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/luis-sosa-reactnative)
+
 
 ---
 
